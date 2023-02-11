@@ -60,11 +60,13 @@ const questions = inquirer
 
 const readme =`
 # ${answers.Title}\n\n
+[![License](https://img.shields.io/badge/License-${answers.licence}-blue.svg)](https://opensource.org/licenses/${answers.licence})
 ## Description
 ${answers.description}\n\n
 ***
 ## Licence 
 ${answers.licence}\n\n
+
 ***
 ## Usage
 ${answers.usage}\n\n
