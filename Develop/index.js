@@ -32,9 +32,27 @@ const questions = inquirer
         name: 'install',
     },
     {
+        type: 'input',
+        message: 'What is your GitHub Username?',
+        name: 'Username',
+    },
+    {
+        type: 'confirm',
+        message: 'Do you want to add Email information [optional]',
+        default: true,
+        name: 'Email',
+    }, 
+    {
+        type: 'input',
+        message: 'Please enter your Email Address.',
+        name: 'addEmail',
+        when: (answers) => answers.Email,
+    },
+    {
         type: 'confirm',
         message: 'Would you like to create the README file?',
-        name: '(Y/N)',
+        default: true,
+        name: 'create file',
     }
 ])
 .then((answers) =>{
@@ -44,12 +62,19 @@ const readme =`
 # ${answers.Title}\n\n
 ## Description
 ${answers.description}\n\n
-## Licence
+***
+## Licence 
 ${answers.licence}\n\n
+***
 ## Usage
 ${answers.usage}\n\n
+***
 ## Install
 ${answers.install}\n\n
+***
+## Contact
+GitHub: ${answers.Username}\n\n
+${"Email: "+answers.addEmail}\n\n
 This Project is Licenced under the ${answers.licence} licence.`;
 
     // TODO: Create a function to write README file
