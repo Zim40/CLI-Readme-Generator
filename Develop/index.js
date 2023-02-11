@@ -40,14 +40,33 @@ const questions = inquirer
 .then((answers) =>{
     console.log(answers);
 
+const readme =`
+# ${answers.Title}\n\n
+## Description
+${answers.description}\n\n
+## Licence
+${answers.licence}\n\n
+## Usage
+${answers.usage}\n\n
+## Install
+${answers.install}\n\n
+This Project is Licenced under the ${answers.licence} licence.`;
 
     // TODO: Create a function to write README file
-    function writeToFile(fileName, data) {
+    function writeToFile(readme, questions) {
+        fs.writeFile("README.md", readme, err => {
+            if(err) {
+                return console.log("Error Writing File");
+            }
+            console.log("File Created!");
+        })
 
     }
 
     // TODO: Create a function to initialize app
-    function init() { }
+    function init() { 
+        writeToFile(readme, questions);
+    }
 
     // Function call to initialize app
     init();
