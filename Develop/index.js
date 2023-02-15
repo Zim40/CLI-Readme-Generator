@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
+const generateMarkdown = require('./utils/generateMarkdown');
 
 // TODO: Create an array of questions for user input
 const questions = inquirer 
@@ -17,8 +18,8 @@ const questions = inquirer
     },
     {
         type: 'input',
-        message: 'Licence - What kind of Licence does your project require?',
-        name: 'licence',
+        message: 'license - What kind of license does your project require?',
+        name: 'license',
         validate: (input) => input === "" ? "Please enter a Value" : true,
     },
     {
@@ -33,7 +34,7 @@ const questions = inquirer
     },
     {
         type: 'input',
-        message: 'What is your GitHub Username?',
+        message: 'GitHub - What is your GitHub Username?',
         name: 'Username',
     },
     {
@@ -41,12 +42,14 @@ const questions = inquirer
         message: 'Do you want to add Email information [optional]',
         default: true,
         name: 'Email',
+        
     }, 
     {
         type: 'input',
-        message: 'Please enter your Email Address.',
+        message: 'Contact - Please enter your Email Address.',
         name: 'addEmail',
         when: (answers) => answers.Email,
+        
     },
     {
         type: 'confirm',
@@ -58,30 +61,10 @@ const questions = inquirer
 .then((answers) =>{
     console.log(answers);
 
-const readme =`
-# ${answers.Title}\n\n
-[![License](https://img.shields.io/badge/License-${answers.licence}-blue.svg)](https://opensource.org/licenses/${answers.licence})
-## Description
-${answers.description}\n\n
-***
-## Licence 
-${answers.licence}\n\n
-
-***
-## Usage
-${answers.usage}\n\n
-***
-## Install
-${answers.install}\n\n
-***
-## Contact
-GitHub: ${answers.Username}\n\n
-${"Email: "+answers.addEmail}\n\n
-This Project is Licenced under the ${answers.licence} licence.`;
 
     // TODO: Create a function to write README file
-    function writeToFile(readme, questions) {
-        fs.writeFile("README.md", readme, err => {
+    function writeToFile() {
+        fs.writeFile("README.md", generateMarkdown(answers), err => {
             if(err) {
                 return console.log("Error Writing File");
             }
@@ -92,7 +75,7 @@ This Project is Licenced under the ${answers.licence} licence.`;
 
     // TODO: Create a function to initialize app
     function init() { 
-        writeToFile(readme, questions);
+        writeToFile(generateMarkdown);
     }
 
     // Function call to initialize app
