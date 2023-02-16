@@ -2,9 +2,13 @@
 // If there is no license, return an empty string
 
 function renderLicenseBadge(answers) {
-  const licenseBadge = `[![License](https://img.shields.io/badge/License-${answers.license}-blue.svg)](https://opensource.org/licenses/${answers.license})`;
+  let licenseBadge = `[![License](https://img.shields.io/badge/License-${answers.license}-blue.svg)](https://opensource.org/licenses/${answers.license})`;
   return licenseBadge;
 
+}
+function renderLicenseLink(answers) {
+  let licenselink = `[More Information](https://opensource.org/licenses/${answers.license})`;
+  return licenselink;
 }
 
 
@@ -15,6 +19,7 @@ function generateMarkdown(answers) {
   `# ${answers.Title}\n\n
 
   ${renderLicenseBadge(answers)}
+  
 
   ## Table of Contents:
    - [License](#license)
@@ -23,18 +28,24 @@ function generateMarkdown(answers) {
    - [Contact](#contact)
 
   ## Description
+  ***
   ${answers.description}\n\n
-  ***
-  ## license 
+  
+  ## license
+  *** 
   ${answers.license}\n\n
-  ***
+   
+  ${renderLicenseLink(answers)}
   ## Usage
+  ***
   ${answers.usage}\n\n
-  ***
+  
   ## Install
-  ${answers.install}\n\n
   ***
+  ${answers.install}\n\n
+  
   ## Contact
+  ***
   GitHub: ${answers.Username}\n\n
   Email: ${answers.addEmail}\n\n
   This Project is licensed under the ${answers.license} license.`;
